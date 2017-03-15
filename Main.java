@@ -1,3 +1,5 @@
+import network_tools.XmlHelper;
+
 import java.io.*;
 import java.util.*;
 
@@ -19,9 +21,9 @@ public class Main {
                 for (int i = 1; i < args.length; i++) source += " " + args[i];
                 in = new Scanner(source);
         }
-
-        String filePath = System.getProperty("user.dir") + File.separator + "villes.xml";
+        String filePath = System.getProperty("user.dir") + File.separator + "data" + File.separator + "villes.xml";
         //lire le fichier villes.xml avec votre code
+        XmlHelper.loadNetwork(filePath);
         System.err.println("Le fichier XML " + filePath + " a été chargé\n");
         int choix = 0;
         do {
