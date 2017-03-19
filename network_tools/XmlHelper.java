@@ -1,5 +1,6 @@
 package network_tools;
 
+import com.sun.org.apache.xpath.internal.SourceTree;
 import objects.City;
 import objects.Network;
 import org.w3c.dom.Document;
@@ -28,7 +29,7 @@ public class XmlHelper {
             final NodeList racineNoeuds = racine.getChildNodes();
 
             for (int i = 0; i < racineNoeuds.getLength(); i++) {
-                System.out.println(racineNoeuds.item(i).getNodeName());
+
                 if (racineNoeuds.item(i).getNodeType() == Node.ELEMENT_NODE) {
                     final Element element = (Element) racineNoeuds.item(i);
                     switch (element.getNodeName()) {
@@ -36,16 +37,26 @@ public class XmlHelper {
                             network = new Network(element.getNodeValue());
                             break;
                         case "ville":
-                            int longitude = Integer.parseInt(element.getAttribute("longitude"));
-                            int latitude = Integer.parseInt(element.getAttribute("latitude"));
-                            if (network != null){
-                                network.addCity(new City(element.getAttribute("nom"), longitude, latitude));
-                            } else {
-                                System.out.println("network not initialized");
+                            int longitude = Integer.parseInt(element.getElementsByTagName("longitude").item(0).getTextContent().replace(" ", ""));
+                            int latitude = Integer.parseInt(element.getElementsByTagName("latitude").item(0).getTextContent().replace(" ", ""));
+                            String name = element.getElementsByTagName("nom").item(0).getTextContent().replace(" ", "");
+                            if (network != null) {
+                                network.addCity(new City(name, longitude, latitude));
+                            }else{
+                                System.out.println("format file error: no title");
+                                System.exit(1);
                             }
                             break;
                         case "liaison":
-
+                            String city1 = element.getElementsByTagName("vil_1").item(0).getTextContent().replace(" ", "");
+                            String city2 = element.getElementsByTagName("vil_2").item(0).getTextContent().replace(" ", "");
+                            Integer distance = Integer.parseInt(element.getElementsByTagName("temps").item(0).getTextContent().replace(" ", ""));
+                            if (network != null) {
+                                network.addConnection(city1, city2, distance);
+                            }else{
+                                System.out.println("format file error: no title");
+                                System.exit(1);
+                            }
                             break;
                         default:
                             System.out.println("error unknow type");
@@ -58,10 +69,7 @@ public class XmlHelper {
         } catch (final ParserConfigurationException | SAXException | IOException e) {
             e.printStackTrace();
         }
-
-
-        //Network network = new Network();
-        return new Network("bonjour");
+        return network;
     }
 
     public static void saveNetwork(Network network) {

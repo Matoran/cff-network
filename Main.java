@@ -1,4 +1,5 @@
 import network_tools.XmlHelper;
+import objects.Network;
 
 import java.io.*;
 import java.util.*;
@@ -23,7 +24,8 @@ public class Main {
         }
         String filePath = System.getProperty("user.dir") + File.separator + "data" + File.separator + "villes.xml";
         //lire le fichier villes.xml avec votre code
-        XmlHelper.loadNetwork(filePath);
+        Network network = XmlHelper.loadNetwork(filePath);
+        network.update();
         System.err.println("Le fichier XML " + filePath + " a été chargé\n");
         int choix = 0;
         do {
@@ -55,11 +57,13 @@ public class Main {
             switch (choix) {
                 case 1:
                     // format de sortie -> à générer avec votre code
+                    network.displayCities();
                     System.out.println("[0:Geneve] [1:Lausanne] [2:Neuchatel] [3:Delemont] [4:Bale] [5:Berne] [6:Lucerne] [7:Zurich] [8:Schaffouse] [9:St.-Gall] [10:Coire] [11:St.-Moritz] [12:Bellinzone] [13:Andermatt] [14:Sion]");
                     break;
                 case 2:
                     // format de sortie -> à générer avec votre code
                     // imprimer "inf" à la place Integer.MAX_VALUE
+                    network.displayDistanceMatrix();
                     System.out.println("0 34 inf inf inf inf inf inf inf inf inf inf inf inf inf");
                     System.out.println("34 0 40 inf inf 67 inf inf inf inf inf inf inf inf 67");
                     System.out.println("inf 40 0 49 87 42 inf inf inf inf inf inf inf inf inf");
@@ -78,6 +82,7 @@ public class Main {
                     break;
                 case 3:
                     // format de sortie -> à générer avec votre code
+                    network.displayDistanceList();
                     System.out.println("Geneve [Lausanne:34]");
                     System.out.println("Lausanne [Geneve:34] [Neuchatel:40] [Berne:67] [Sion:67]");
                     System.out.println("Neuchatel [Lausanne:40] [Delemont:49] [Bale:87] [Berne:42]");
@@ -139,7 +144,7 @@ public class Main {
                     str2 = in.next();
                     System.err.print("Distance: ");
                     // format de sortie -> à générer avec votre code
-                    System.out.println(123); // valeur pour Geneve à Delemont
+                    System.out.println(network.distance(str1, str2)); // valeur pour Geneve à Delemont
                     break;
                 case 7:
                     System.err.println("Ville d'origine:");

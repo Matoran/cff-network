@@ -1,5 +1,7 @@
 package objects;
 
+import javafx.util.Pair;
+
 import java.util.ArrayList;
 
 /**
@@ -9,7 +11,7 @@ public class City {
     private String name;
     private int longitude;
     private int latitude;
-    private ArrayList<City> connections;
+    private ArrayList<Pair<City,Integer>> connections;
 
     public City(String name, int longitude, int latitude) {
         this.name = name;
@@ -18,9 +20,15 @@ public class City {
         connections = new ArrayList<>();
     }
 
-    public void addConnection(City city){
-        connections.add(city);
+    public void addConnection(City city, Integer distance){
+        connections.add(new Pair<>(city, distance));
     }
 
+    public String getName() {
+        return name;
+    }
 
+    public ArrayList<Pair<City, Integer>> getConnections() {
+        return connections;
+    }
 }
