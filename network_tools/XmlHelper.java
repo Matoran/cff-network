@@ -73,6 +73,19 @@ public class XmlHelper {
     }
 
     public static void saveNetwork(Network network) {
+        final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        try {
+            final DocumentBuilder builder = factory.newDocumentBuilder();
+            final Document document = builder.newDocument();
+            final Element racine = document.createElement("reseau");
+            document.appendChild(racine);
+            //racine.appendChild()
+
+
+        } catch (ParserConfigurationException e) {
+
+
+        }
 
     }
 

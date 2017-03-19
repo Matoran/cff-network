@@ -1,3 +1,4 @@
+import network_tools.Dijkstra;
 import network_tools.XmlHelper;
 import objects.Network;
 
@@ -158,12 +159,14 @@ public class Main {
                 case 8:
                     System.err.println("Ville d'origine:");
                     str1 = in.next();
+                    Dijkstra.solve(str1, network, 8);
                     // format de sortie -> à générer avec votre code
-                    System.out.println("[Geneve:0] [Lausanne:34] [Neuchatel:74] [Delemont:123] [Bale:157] [Berne:101] $[Lucerne:184] [Zurich:180] [Schaffouse:222] [St.-Gall:246] [Coire:271] [St.-Moritz:387] [Bellinzone:316] [Andermatt:263] [Sion:101]"); // résultat pour Geneve
+                    System.out.println("[Geneve:0] [Lausanne:34] [Neuchatel:74] [Delemont:123] [Bale:157] [Berne:101] [Lucerne:184] [Zurich:180] [Schaffouse:222] [St.-Gall:246] [Coire:271] [St.-Moritz:387] [Bellinzone:316] [Andermatt:263] [Sion:101]"); // résultat pour Geneve
                     break;
                 case 9:
                     System.err.println("Ville d'origine:");
                     str1 = in.next();
+                    Dijkstra.solve(str1, network, 9);
                     // format de sortie -> à générer avec votre code
                     System.out.println("[Geneve<-Lausanne] [Lausanne<-Neuchatel] [Neuchatel<-Delemont] [Delemont<-Bale] [Lausanne<-Berne] [Berne<-Lucerne] [Berne<-Zurich] [Zurich<-Schaffouse] [Zurich<-St.-Gall] [Zurich<-Coire] [Coire<-St.-Moritz] [Lucerne<-Bellinzone] [Sion<-Andermatt] [Lausanne<-Sion]"); // résultat pour Geneve
                     break;

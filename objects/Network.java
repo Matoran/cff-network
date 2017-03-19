@@ -25,7 +25,7 @@ public class Network {
         cities.add(city);
     }
 
-    public City searchCityByName(String city) {
+    public City getCityByName(String city) {
         for (int i = 0; i < cities.size(); i++) {
             if (cities.get(i).getName().equals(city)) {
                 return cities.get(i);
@@ -36,9 +36,20 @@ public class Network {
         return null;
     }
 
+    public int getCityIndexByName(String city) {
+        for (int i = 0; i < cities.size(); i++) {
+            if (cities.get(i).getName().equals(city)) {
+                return i;
+            }
+        }
+        System.out.println("unknow city: " + city);
+        System.exit(1);
+        return -1;
+    }
+
     public void addConnection(String city, String city2, Integer distance) {
-        City c = searchCityByName(city);
-        City c2 = searchCityByName(city2);
+        City c = getCityByName(city);
+        City c2 = getCityByName(city2);
         c.addConnection(c2, distance);
         c2.addConnection(c, distance);
     }
@@ -100,5 +111,13 @@ public class Network {
 
     public int distance(String str1, String str2) {
         return 0;
+    }
+
+    public ArrayList<City> getCities() {
+        return cities;
+    }
+
+    public int[][] getDistanceMatrix() {
+        return distanceMatrix;
     }
 }
