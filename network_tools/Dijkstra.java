@@ -24,7 +24,7 @@ public class Dijkstra {
         return index;
     }
 
-    public static int[] solve(String begin, Network network, int display){
+    public static void solve(String begin, Network network, int display){
         int result[] = new int[network.getCities().size()];
         boolean visited[] = new boolean[network.getCities().size()];
         int precedence[] = new int[network.getCities().size()];
@@ -69,12 +69,19 @@ public class Dijkstra {
                 break;
             case 11:
                 break;
+            case 16:
+                for (int i = 0; i < result.length; i++) {
+                    if(result[i] == Integer.MAX_VALUE){
+                        System.out.println(false);
+                        return;
+                    }
+                }
+                System.out.println(true);
+                break;
             default:
                 System.out.println("unknow display mode");
 
         }
-
         System.out.println();
-        return result;
     }
 }

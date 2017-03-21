@@ -31,4 +31,12 @@ public class City {
     public ArrayList<Pair<City, Integer>> getConnections() {
         return connections;
     }
+
+    public int getLongitude() {
+        return longitude;
+    }
+
+    public int getLatitude() {
+        return latitude;
+    }
 }

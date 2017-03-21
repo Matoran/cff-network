@@ -65,40 +65,10 @@ public class Main {
                     // format de sortie -> à générer avec votre code
                     // imprimer "inf" à la place Integer.MAX_VALUE
                     network.displayDistanceMatrix();
-                    System.out.println("0 34 inf inf inf inf inf inf inf inf inf inf inf inf inf");
-                    System.out.println("34 0 40 inf inf 67 inf inf inf inf inf inf inf inf 67");
-                    System.out.println("inf 40 0 49 87 42 inf inf inf inf inf inf inf inf inf");
-                    System.out.println("inf inf 49 0 34 60 inf inf inf inf inf inf inf inf inf");
-                    System.out.println("inf inf 87 34 0 66 73 60 inf inf inf inf inf inf inf");
-                    System.out.println("inf 67 42 60 66 0 83 79 inf inf inf inf inf inf 157");
-                    System.out.println("inf inf inf inf 73 83 0 46 inf inf inf inf 132 102 inf");
-                    System.out.println("inf inf inf inf 60 79 46 0 42 66 91 inf inf inf inf");
-                    System.out.println("inf inf inf inf inf inf inf 42 0 87 inf inf inf inf inf");
-                    System.out.println("inf inf inf inf inf inf inf 66 87 0 99 inf inf inf inf");
-                    System.out.println("inf inf inf inf inf inf inf 91 inf 99 0 116 inf 100 inf");
-                    System.out.println("inf inf inf inf inf inf inf inf inf inf 116 0 inf inf inf");
-                    System.out.println("inf inf inf inf inf inf 132 inf inf inf inf inf 0 84 inf");
-                    System.out.println("inf inf inf inf inf inf 102 inf inf inf 100 inf 84 0 162");
-                    System.out.println("inf 67 inf inf inf 157 inf inf inf inf inf inf inf 162 0");
                     break;
                 case 3:
                     // format de sortie -> à générer avec votre code
                     network.displayDistanceList();
-                    System.out.println("Geneve [Lausanne:34]");
-                    System.out.println("Lausanne [Geneve:34] [Neuchatel:40] [Berne:67] [Sion:67]");
-                    System.out.println("Neuchatel [Lausanne:40] [Delemont:49] [Bale:87] [Berne:42]");
-                    System.out.println("Delemont [Neuchatel:49] [Bale:34] [Berne:60]");
-                    System.out.println("Bale [Neuchatel:87] [Delemont:34] [Berne:66] [Lucerne:73] [Zurich:60]");
-                    System.out.println("Berne [Lausanne:67] [Neuchatel:42] [Delemont:60] [Bale:66] [Lucerne:83] [Zurich:79] [Sion:157]");
-                    System.out.println("Lucerne [Bale:73] [Berne:83] [Zurich:46] [Bellinzone:132] [Andermatt:102]");
-                    System.out.println("Zurich [Bale:60] [Berne:79] [Lucerne:46] [Schaffouse:42] [St.-Gall:66] [Coire:91]");
-                    System.out.println("Schaffouse [Zurich:42] [St.-Gall:87]");
-                    System.out.println("St.-Gall [Zurich:66] [Schaffouse:87] [Coire:99]");
-                    System.out.println("Coire [Zurich:91] [St.-Gall:99] [St.-Moritz:116] [Andermatt:100]");
-                    System.out.println("St.-Moritz [Coire:116]");
-                    System.out.println("Bellinzone [Lucerne:132] [Andermatt:84]");
-                    System.out.println("Andermatt [Lucerne:102] [Coire:100] [Bellinzone:84] [Sion:162]");
-                    System.out.println("Sion [Lausanne:67] [Berne:157] [Andermatt:162]");
                     break;
                 case 4:
                     // format de sortie -> à générer avec votre code
@@ -144,8 +114,7 @@ public class Main {
                     System.err.println("Ville de destination:");
                     str2 = in.next();
                     System.err.print("Distance: ");
-                    // format de sortie -> à générer avec votre code
-                    System.out.println(network.distance(str1, str2)); // valeur pour Geneve à Delemont
+                    System.out.println(network.distance(str1, str2));
                     break;
                 case 7:
                     System.err.println("Ville d'origine:");
@@ -153,23 +122,18 @@ public class Main {
                     System.err.println("Ville de destination:");
                     str2 = in.next();
                     System.err.print("Parcours: ");
-                    // format de sortie -> à générer avec votre code
-                    System.out.println("[Geneve:Lausanne:Berne:Zurich:Coire]"); // résultat pour Geneve à Coire
+                    System.out.println("[Geneve:Lausanne:Berne:Zurich:Coire]");
                     break;
                 case 8:
                     System.err.println("Ville d'origine:");
                     str1 = in.next();
                     Dijkstra.solve(str1, network, 8);
-                    // format de sortie -> à générer avec votre code
-                    System.out.println("[Geneve:0] [Lausanne:34] [Neuchatel:74] [Delemont:123] [Bale:157] [Berne:101] [Lucerne:184] [Zurich:180] [Schaffouse:222] [St.-Gall:246] [Coire:271] [St.-Moritz:387] [Bellinzone:316] [Andermatt:263] [Sion:101]"); // résultat pour Geneve
                     break;
                 case 9:
                     System.err.println("Ville d'origine:");
                     str1 = in.next();
                     Dijkstra.solve(str1, network, 9);
-                    // format de sortie -> à générer avec votre code
-                    System.out.println("[Geneve<-Lausanne] [Lausanne<-Neuchatel] [Neuchatel<-Delemont] [Delemont<-Bale] [Lausanne<-Berne] [Berne<-Lucerne] [Berne<-Zurich] [Zurich<-Schaffouse] [Zurich<-St.-Gall] [Zurich<-Coire] [Coire<-St.-Moritz] [Lucerne<-Bellinzone] [Sion<-Andermatt] [Lausanne<-Sion]"); // résultat pour Geneve
-                    break;
+                   break;
                 case 10:
                     System.err.println("Ville d'origine:");
                     str1 = in.next();
@@ -217,25 +181,15 @@ public class Main {
                     break;
                 case 16:
                     // format de sortie -> à générer avec votre code
-                    System.out.println(true); // réponse true ou false
+                    Dijkstra.solve(network.getCities().get(0).getName(), network, 16);
                     break;
                 case 17:
                     System.err.println("Nom du fichier XML:");
                     str1 = in.next();
                     // sauvegarde à faire avec votre code
+                    XmlHelper.saveNetwork(network, str1);
                     break;
             }
         } while (choix != 0);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
