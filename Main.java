@@ -142,7 +142,8 @@ public class Main {
                     System.err.print("Distance: ");
                     // format de sortie -> à générer avec votre code
                     // imprimer "inf" à la place Integer.MAX_VALUE
-                    System.out.println(267); // résultat pour Bale à St.-Moritz
+                    Dijkstra.solve(str1, str2, network, 10);
+                    //System.out.println(267); // résultat pour Bale à St.-Moritz
                     break;
                 case 11:
                     System.err.println("Ville d'origine:");
@@ -151,7 +152,8 @@ public class Main {
                     str2 = in.next();
                     System.err.print("Parcours: ");
                     // format de sortie -> à générer avec votre code
-                    System.out.println("[Bale:Zurich:Coire:St.-Moritz]"); // résultat pour Bale à St.-Moritz
+                    Dijkstra.solve(str1, str2, network, 11);
+                    //System.out.println("[Bale:Zurich:Coire:St.-Moritz]"); // résultat pour Bale à St.-Moritz
                     break;
                 case 12:
                     System.err.println("Nom de la ville:");

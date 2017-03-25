@@ -5,6 +5,7 @@ import objects.City;
 import objects.Network;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 /**
  * Created by matoran on 3/19/17.
@@ -25,6 +26,10 @@ public class Dijkstra {
     }
 
     public static void solve(String begin, Network network, int display){
+        solve(begin, network, display, null);
+    }
+
+    public static int[] solve(String begin, Network network, int display, String end){
         int result[] = new int[network.getCities().size()];
         boolean visited[] = new boolean[network.getCities().size()];
         int precedence[] = new int[network.getCities().size()];
@@ -40,6 +45,9 @@ public class Dijkstra {
         visited[index] = true;
 
         while((index = minIndex(result, visited)) != -1){
+            if(network.getCities().get(index).getName().equals(end)){
+                break;
+            }
             for (int i = 0; i < network.getDistanceMatrix().length; i++) {
                 if(network.getDistanceMatrix()[index][i] != Integer.MAX_VALUE) {
                     if (result[i] > network.getDistanceMatrix()[index][i] + result[index]) {
@@ -65,23 +73,34 @@ public class Dijkstra {
                 }
                 break;
             case 10:
-
+                //System.out.println(267); // résultat pour Bale à St.-Moritz
+                System.out.println(result[network.getCityIndexByName(end)]);
                 break;
             case 11:
-                break;
-            case 16:
-                for (int i = 0; i < result.length; i++) {
-                    if(result[i] == Integer.MAX_VALUE){
-                        System.out.println(false);
-                        return;
-                    }
+                int city = network.getCityIndexByName(end);
+                int old;
+                Stack<String> stack = new Stack<>();
+                do{
+                    stack.add(network.getCities().get(city).getName());
+                    old = city;
+                }while((city = precedence[city]) != old);
+                System.out.print("[");
+                while(!stack.isEmpty()){
+                    System.out.print(stack.pop() + (stack.size() > 0 ? ":" : ""));
                 }
-                System.out.println(true);
+                System.out.print("]");
+                //System.out.println("[Bale:Zurich:Coire:St.-Moritz]"); // résultat pour Bale à St.-Moritz
                 break;
             default:
                 System.out.println("unknow display mode");
 
         }
-        System.out.println();
+
+
+        return result;
+    }
+
+    public static void solve(String str1, String str2, Network network, int display) {
+        solve(str1, network, display, str2);
     }
 }
