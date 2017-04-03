@@ -13,11 +13,11 @@ import java.util.Stack;
 public class Dijkstra {
 
 
-    private static int minIndex(int[] distances, boolean[] visited){
+    private static int minIndex(int[] distances, boolean[] visited) {
         int index = -1;
         int min = Integer.MAX_VALUE;
         for (int i = 0; i < distances.length; i++) {
-            if(!visited[i] && min > distances[i]){
+            if (!visited[i] && min > distances[i]) {
                 min = distances[i];
                 index = i;
             }
@@ -25,18 +25,18 @@ public class Dijkstra {
         return index;
     }
 
-    public static void solve(String begin, Network network, int display){
+    public static void solve(String begin, Network network, int display) {
         solve(begin, network, display, null);
     }
 
-    public static void solve(String begin, Network network, int display, String end){
+    public static void solve(String begin, Network network, int display, String end) {
         int result[] = new int[network.getCities().size()];
         boolean visited[] = new boolean[network.getCities().size()];
         int precedence[] = new int[network.getCities().size()];
 
         int index = network.getCityIndexByName(begin);
         for (int i = 0; i < network.getCities().size(); i++) {
-            if(network.getDistanceMatrix()[index][i] != Integer.MAX_VALUE)
+            if (network.getDistanceMatrix()[index][i] != Integer.MAX_VALUE)
                 precedence[i] = index;
             else
                 precedence[i] = -1;
@@ -44,12 +44,12 @@ public class Dijkstra {
         }
         visited[index] = true;
 
-        while((index = minIndex(result, visited)) != -1){
-            if(network.getCities().get(index).getName().equals(end)){
+        while ((index = minIndex(result, visited)) != -1) {
+            if (network.getCities().get(index).getName().equals(end)) {
                 break;
             }
             for (int i = 0; i < network.getDistanceMatrix().length; i++) {
-                if(network.getDistanceMatrix()[index][i] != Integer.MAX_VALUE) {
+                if (network.getDistanceMatrix()[index][i] != Integer.MAX_VALUE) {
                     if (result[i] > network.getDistanceMatrix()[index][i] + result[index]) {
                         result[i] = network.getDistanceMatrix()[index][i] + result[index];
                         precedence[i] = index;
@@ -61,13 +61,13 @@ public class Dijkstra {
         switch (display) {
             case 8:
                 for (int i = 0; i < result.length; i++) {
-                    System.out.print("[" + network.getCities().get(i).getName() + ":" +result[i] + "] ");
+                    System.out.print("[" + network.getCities().get(i).getName() + ":" + result[i] + "] ");
                 }
                 break;
             case 9:
                 for (int i = 0; i < result.length; i++) {
-                    if(i != precedence[i])
-                        System.out.print("[" + network.getCities().get(precedence[i]).getName() + "<-" +network.getCities().get(i).getName() + "] ");
+                    if (i != precedence[i])
+                        System.out.print("[" + network.getCities().get(precedence[i]).getName() + "<-" + network.getCities().get(i).getName() + "] ");
                 }
                 break;
             case 10:
@@ -78,16 +78,25 @@ public class Dijkstra {
                 int city = network.getCityIndexByName(end);
                 int old;
                 Stack<String> stack = new Stack<>();
-                do{
+                do {
                     stack.add(network.getCities().get(city).getName());
                     old = city;
-                }while((city = precedence[city]) != old);
+                } while ((city = precedence[city]) != old);
                 System.out.print("[");
-                while(!stack.isEmpty()){
+                while (!stack.isEmpty()) {
                     System.out.print(stack.pop() + (stack.size() > 0 ? ":" : ""));
                 }
                 System.out.print("]");
                 //System.out.println("[Bale:Zurich:Coire:St.-Moritz]"); // résultat pour Bale à St.-Moritz
+                break;
+            case 16:
+                for (int i = 0; i < result.length; i++) {
+                    if (result[i] == Integer.MAX_VALUE) {
+                        System.out.println(false);
+                        return;
+                    }
+                }
+                System.out.println(true);
                 break;
             default:
                 System.out.println("unknow display mode");
