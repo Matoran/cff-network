@@ -29,7 +29,7 @@ public class Dijkstra {
         solve(begin, network, display, null);
     }
 
-    public static int[] solve(String begin, Network network, int display, String end){
+    public static void solve(String begin, Network network, int display, String end){
         int result[] = new int[network.getCities().size()];
         boolean visited[] = new boolean[network.getCities().size()];
         int precedence[] = new int[network.getCities().size()];
@@ -58,8 +58,6 @@ public class Dijkstra {
             }
             visited[index] = true;
         }
-        //System.out.println("[Geneve<-Lausanne] [Lausanne<-Neuchatel] [Neuchatel<-Delemont] [Delemont<-Bale] [Lausanne<-Berne] [Berne<-Lucerne] [Berne<-Zurich] [Zurich<-Schaffouse] [Zurich<-St.-Gall] [Zurich<-Coire] [Coire<-St.-Moritz] [Lucerne<-Bellinzone] [Sion<-Andermatt] [Lausanne<-Sion]"); // résultat pour Geneve
-
         switch (display) {
             case 8:
                 for (int i = 0; i < result.length; i++) {
@@ -95,9 +93,6 @@ public class Dijkstra {
                 System.out.println("unknow display mode");
 
         }
-
-
-        return result;
     }
 
     public static void solve(String str1, String str2, Network network, int display) {

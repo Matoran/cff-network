@@ -1,4 +1,5 @@
 import network_tools.Dijkstra;
+import network_tools.Floyd;
 import network_tools.XmlHelper;
 import objects.Network;
 
@@ -59,7 +60,6 @@ public class Main {
                 case 1:
                     // format de sortie -> à générer avec votre code
                     network.displayCities();
-                    System.out.println("[0:Geneve] [1:Lausanne] [2:Neuchatel] [3:Delemont] [4:Bale] [5:Berne] [6:Lucerne] [7:Zurich] [8:Schaffouse] [9:St.-Gall] [10:Coire] [11:St.-Moritz] [12:Bellinzone] [13:Andermatt] [14:Sion]");
                     break;
                 case 2:
                     // format de sortie -> à générer avec votre code
@@ -92,6 +92,8 @@ public class Main {
                 case 5:
                     // format de sortie -> à générer avec votre code
                     // imprimer -1 si pas de prédécesseur
+                    Floyd.solve(network);
+                    System.out.println();
                     System.out.println("-1 0 1 2 3 1 5 5 7 7 7 10 6 14 1");
                     System.out.println("1 -1 1 2 3 1 5 5 7 7 7 10 6 14 1");
                     System.out.println("1 2 -1 2 3 2 5 5 7 7 7 10 6 6 1");
@@ -133,7 +135,7 @@ public class Main {
                     System.err.println("Ville d'origine:");
                     str1 = in.next();
                     Dijkstra.solve(str1, network, 9);
-                   break;
+                    break;
                 case 10:
                     System.err.println("Ville d'origine:");
                     str1 = in.next();
