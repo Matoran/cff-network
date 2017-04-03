@@ -11,25 +11,19 @@ public class City {
     private String name;
     private int longitude;
     private int latitude;
-    private ArrayList<Pair<City,Integer>> connections;
 
     public City(String name, int longitude, int latitude) {
         this.name = name;
         this.longitude = longitude;
         this.latitude = latitude;
-        connections = new ArrayList<>();
     }
 
-    public void addConnection(City city, Integer distance){
-        connections.add(new Pair<>(city, distance));
+    public City(String name) {
+        this.name = name;
+        longitude = latitude = 0;
     }
-
     public String getName() {
         return name;
-    }
-
-    public ArrayList<Pair<City, Integer>> getConnections() {
-        return connections;
     }
 
     public int getLongitude() {

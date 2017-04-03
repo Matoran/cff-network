@@ -76,17 +76,21 @@ public class Dijkstra {
                 break;
             case 11:
                 int city = network.getCityIndexByName(end);
+
                 int old;
                 Stack<String> stack = new Stack<>();
                 do {
                     stack.add(network.getCities().get(city).getName());
                     old = city;
-                } while ((city = precedence[city]) != old);
-                System.out.print("[");
-                while (!stack.isEmpty()) {
-                    System.out.print(stack.pop() + (stack.size() > 0 ? ":" : ""));
+                } while ((city = precedence[city]) != old && city != -1);
+                if (city != -1) {
+                    System.out.print("[");
+                    while (!stack.isEmpty()) {
+                        System.out.print(stack.pop() + (stack.size() > 0 ? ":" : ""));
+                    }
+                    System.out.println("]");
                 }
-                System.out.print("]");
+
                 //System.out.println("[Bale:Zurich:Coire:St.-Moritz]"); // résultat pour Bale à St.-Moritz
                 break;
             case 16:

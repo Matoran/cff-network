@@ -71,44 +71,10 @@ public class Main {
                     network.displayDistanceList();
                     break;
                 case 4:
-                    // format de sortie -> à générer avec votre code
-                    // imprimer "inf" à la place Integer.MAX_VALUE
-                    System.out.println("0 34 74 123 157 101 184 180 222 246 271 387 316 263 101");
-                    System.out.println("34 0 40 89 123 67 150 146 188 212 237 353 282 229 67");
-                    System.out.println("74 40 0 49 83 42 125 121 163 187 212 328 257 227 107");
-                    System.out.println("123 89 49 0 34 60 107 94 136 160 185 301 239 209 156");
-                    System.out.println("157 123 83 34 0 66 73 60 102 126 151 267 205 175 190");
-                    System.out.println("101 67 42 60 66 0 83 79 121 145 170 286 215 185 134");
-                    System.out.println("184 150 125 107 73 83 0 46 88 112 137 253 132 102 217");
-                    System.out.println("180 146 121 94 60 79 46 0 42 66 91 207 178 148 213");
-                    System.out.println("222 188 163 136 102 121 88 42 0 87 133 249 220 190 255");
-                    System.out.println("246 212 187 160 126 145 112 66 87 0 99 215 244 199 279");
-                    System.out.println("271 237 212 185 151 170 137 91 133 99 0 116 184 100 262");
-                    System.out.println("387 353 328 301 267 286 253 207 249 215 116 0 300 216 378");
-                    System.out.println("316 282 257 239 205 215 132 178 220 244 184 300 0 84 246");
-                    System.out.println("263 229 227 209 175 185 102 148 190 199 100 216 84 0 162");
-                    System.out.println("101 67 107 156 190 134 217 213 255 279 262 378 246 162 0");
+                    Floyd.solve(network, 4);
                     break;
                 case 5:
-                    // format de sortie -> à générer avec votre code
-                    // imprimer -1 si pas de prédécesseur
-                    Floyd.solve(network);
-                    System.out.println();
-                    System.out.println("-1 0 1 2 3 1 5 5 7 7 7 10 6 14 1");
-                    System.out.println("1 -1 1 2 3 1 5 5 7 7 7 10 6 14 1");
-                    System.out.println("1 2 -1 2 3 2 5 5 7 7 7 10 6 6 1");
-                    System.out.println("1 2 3 -1 3 3 4 4 7 7 7 10 6 6 1");
-                    System.out.println("1 2 3 4 -1 4 4 4 7 7 7 10 6 6 1");
-                    System.out.println("1 5 5 5 5 -1 5 5 7 7 7 10 6 6 1");
-                    System.out.println("1 5 5 4 6 6 -1 6 7 7 7 10 6 6 1");
-                    System.out.println("1 5 5 4 7 7 7 -1 7 7 7 10 6 6 1");
-                    System.out.println("1 5 5 4 7 7 7 8 -1 8 7 10 6 6 1");
-                    System.out.println("1 5 5 4 7 7 7 9 9 -1 9 10 6 10 1");
-                    System.out.println("1 5 5 4 7 7 7 10 7 10 -1 10 13 10 13");
-                    System.out.println("1 5 5 4 7 7 7 10 7 10 11 -1 13 10 13");
-                    System.out.println("1 5 5 4 6 6 12 6 7 7 13 10 -1 12 13");
-                    System.out.println("1 14 5 4 6 6 13 6 7 10 13 10 13 -1 13");
-                    System.out.println("1 14 1 2 3 1 5 5 7 7 13 10 13 14 -1");
+                    Floyd.solve(network, 5);
                     break;
                 case 6:
                     System.err.println("Ville d'origine:");
@@ -116,7 +82,7 @@ public class Main {
                     System.err.println("Ville de destination:");
                     str2 = in.next();
                     System.err.print("Distance: ");
-                    System.out.println(network.distance(str1, str2));
+                    Floyd.solve(network, str1, str2, 6);
                     break;
                 case 7:
                     System.err.println("Ville d'origine:");
@@ -124,7 +90,8 @@ public class Main {
                     System.err.println("Ville de destination:");
                     str2 = in.next();
                     System.err.print("Parcours: ");
-                    System.out.println("[Geneve:Lausanne:Berne:Zurich:Coire]");
+                    Floyd.solve(network, str1, str2, 7);
+
                     break;
                 case 8:
                     System.err.println("Ville d'origine:");
@@ -160,6 +127,7 @@ public class Main {
                 case 12:
                     System.err.println("Nom de la ville:");
                     str1 = in.next();
+                    network.addCity(str1);
                     // mise à jour à faire avec votre code
                     break;
                 case 13:
@@ -169,18 +137,21 @@ public class Main {
                     str2 = in.next();
                     System.err.println("Temps de parcours:");
                     str3 = in.next();
+                    network.addConnection(str1, str2, Integer.valueOf(str3));
                     // mise à jour à faire avec votre code
                     break;
                 case 14:
                     System.err.println("Nom de la ville:");
                     str1 = in.next();
                     // mise à jour à faire avec votre code
+                    network.removeCity(str1);
                     break;
                 case 15:
                     System.err.println("Ville d'origine:");
                     str1 = in.next();
                     System.err.println("Ville de destination:");
                     str2 = in.next();
+                    network.removeConnection(str1, str2);
                     // mise à jour à faire avec votre code
                     break;
                 case 16:
