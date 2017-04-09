@@ -3,8 +3,9 @@ import network_tools.Floyd;
 import network_tools.XmlHelper;
 import objects.Network;
 
-import java.io.*;
-import java.util.*;
+import java.io.File;
+import java.io.IOException;
+import java.util.Scanner;
 
 public class Main {
 
@@ -96,12 +97,12 @@ public class Main {
                 case 8:
                     System.err.println("Ville d'origine:");
                     str1 = in.next();
-                    Dijkstra.solve(str1, network, 8);
+                    Dijkstra.solve(network, str1, 8);
                     break;
                 case 9:
                     System.err.println("Ville d'origine:");
                     str1 = in.next();
-                    Dijkstra.solve(str1, network, 9);
+                    Dijkstra.solve(network, str1, 9);
                     break;
                 case 10:
                     System.err.println("Ville d'origine:");
@@ -111,7 +112,7 @@ public class Main {
                     System.err.print("Distance: ");
                     // format de sortie -> à générer avec votre code
                     // imprimer "inf" à la place Integer.MAX_VALUE
-                    Dijkstra.solve(str1, str2, network, 10);
+                    Dijkstra.solve(network, str1, str2, 10);
                     //System.out.println(267); // résultat pour Bale à St.-Moritz
                     break;
                 case 11:
@@ -121,7 +122,7 @@ public class Main {
                     str2 = in.next();
                     System.err.print("Parcours: ");
                     // format de sortie -> à générer avec votre code
-                    Dijkstra.solve(str1, str2, network, 11);
+                    Dijkstra.solve(network, str1, str2, 11);
                     //System.out.println("[Bale:Zurich:Coire:St.-Moritz]"); // résultat pour Bale à St.-Moritz
                     break;
                 case 12:
@@ -156,7 +157,7 @@ public class Main {
                     break;
                 case 16:
                     // format de sortie -> à générer avec votre code
-                    Dijkstra.solve(network.getCities().get(0).getName(), network, 16);
+                    Dijkstra.solve(network, network.getCities().get(0).getName(), 16);
                     break;
                 case 17:
                     System.err.println("Nom du fichier XML:");

@@ -1,6 +1,5 @@
 package network_tools;
 
-import javafx.util.Pair;
 import objects.City;
 import objects.Network;
 
@@ -11,6 +10,20 @@ import java.util.Stack;
  * Created by matoran on 3/19/17.
  */
 public class Dijkstra {
+    private static int distance;
+    private static ArrayList<City> path = new ArrayList<>();
+    private static boolean connectivity;
+
+    public static int distance(Network network, String city1, String city2){
+        solve(network, city1, city2, 10);
+        return distance;
+    }
+
+    public static ArrayList<City> path(Network network, String city1, String city2){
+        path.clear();
+        solve(network, city1, city2, 11);
+        return path;
+    }
 
 
     private static int minIndex(int[] distances, boolean[] visited) {
@@ -25,11 +38,11 @@ public class Dijkstra {
         return index;
     }
 
-    public static void solve(String begin, Network network, int display) {
-        solve(begin, network, display, null);
+    public static void solve(Network network, String begin, int display) {
+        solve(network, begin, null, display);
     }
 
-    public static void solve(String begin, Network network, int display, String end) {
+    public static void solve(Network network, String begin, String end, int display) {
         int result[] = new int[network.getCities().size()];
         boolean visited[] = new boolean[network.getCities().size()];
         int precedence[] = new int[network.getCities().size()];
@@ -73,6 +86,7 @@ public class Dijkstra {
             case 10:
                 //System.out.println(267); // résultat pour Bale à St.-Moritz
                 System.out.println(result[network.getCityIndexByName(end)]);
+                distance = result[network.getCityIndexByName(end)];
                 break;
             case 11:
                 int city = network.getCityIndexByName(end);
@@ -80,6 +94,7 @@ public class Dijkstra {
                 int old;
                 Stack<String> stack = new Stack<>();
                 do {
+                    path.add(network.getCities().get(city));
                     stack.add(network.getCities().get(city).getName());
                     old = city;
                 } while ((city = precedence[city]) != old && city != -1);
@@ -97,9 +112,11 @@ public class Dijkstra {
                 for (int i = 0; i < result.length; i++) {
                     if (result[i] == Integer.MAX_VALUE) {
                         System.out.println(false);
+                        connectivity = false;
                         return;
                     }
                 }
+                connectivity = true;
                 System.out.println(true);
                 break;
             default:
@@ -108,7 +125,8 @@ public class Dijkstra {
         }
     }
 
-    public static void solve(String str1, String str2, Network network, int display) {
-        solve(str1, network, display, str2);
+    public static boolean connectivity(Network network) {
+        Dijkstra.solve(network, network.getCities().get(0).getName(), 16);
+        return connectivity;
     }
 }

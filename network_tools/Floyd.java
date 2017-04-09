@@ -1,15 +1,31 @@
 package network_tools;
 
+import objects.City;
 import objects.Network;
 
+import java.util.ArrayList;
 import java.util.Stack;
-
-import static java.lang.Math.min;
 
 /**
  * Created by matoran on 3/25/17.
  */
 public class Floyd {
+    private static int distance[][];
+    private static int precedence[][];
+    private static int city1Index;
+    private static int city2Index;
+    private static ArrayList<City> path = new ArrayList<>();
+
+    public static int distance(Network network, String city1, String city2){
+        solve(network, city1, city2, 6);
+        return distance[city1Index][city2Index];
+    }
+
+    public static ArrayList<City> path(Network network, String city1, String city2){
+        path.clear();
+        solve(network, city1, city2, 7);
+        return path;
+    }
 
     private static void displayMatrix(int matrix[][]) {
         for (int i = 0; i < matrix.length; i++) {
@@ -29,11 +45,11 @@ public class Floyd {
     }
 
     public static void solve(Network network, String city1, String city2, int display) {
-        int distance[][] = network.getDistanceMatrix().clone();
+        distance = network.getDistanceMatrix().clone();
         for (int i = 0; i < distance.length; i++) {
             distance[i] = distance[i].clone();
         }
-        int precedence[][] = network.getDistanceMatrix().clone();
+        precedence = network.getDistanceMatrix().clone();
         for (int i = 0; i < precedence.length; i++) {
             precedence[i] = precedence[i].clone();
         }
@@ -59,8 +75,8 @@ public class Floyd {
             }
         }
 
-        int city1Index = 0;
-        int city2Index = 0;
+        city1Index = 0;
+        city2Index = 0;
         if (display == 6 || display == 7) {
             city1Index = network.getCityIndexByName(city1);
             city2Index = network.getCityIndexByName(city2);
@@ -69,6 +85,7 @@ public class Floyd {
         switch (display) {
             case 4:
                 displayMatrix(distance);
+                break;
             case 5:
                 displayMatrix(precedence);
                 break;
@@ -81,6 +98,7 @@ public class Floyd {
                 Stack<String> stack = new Stack<>();
                 while (current != -1 && current != Integer.MAX_VALUE) {
                     stack.add(network.getCities().get(current).getName());
+                    path.add(network.getCities().get(current));
                     current = precedence[city1Index][current];
                 }
                 if (current != Integer.MAX_VALUE) {
