@@ -8,7 +8,6 @@ import java.util.Stack;
 
 /**
  * @author ISELI Cyril & RODRIGUES Marco
- * @brief main
  * @version 0.1
  * @date March and April 2017
  * @file Dijkstra.java
@@ -130,7 +129,6 @@ public class Dijkstra {
                 }
                 break;
             case 10:
-                //System.out.println(267); // résultat pour Bale à St.-Moritz
                 System.out.println(result[network.getCityIndexByName(end)]);
                 distance = result[network.getCityIndexByName(end)];
                 break;

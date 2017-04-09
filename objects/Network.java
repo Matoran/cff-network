@@ -3,59 +3,52 @@ package objects;
 import java.util.ArrayList;
 
 /**
- * Created by matoran on 3/15/17.
+ * @author ISELI Cyril & RODRIGUES Marco
+ * @version 0.1
+ * @date March and April 2017
+ * @file Network.java
+ *
+ * Manages the network of cities
+ *
  */
 public class Network {
+    //--------------------Attributes----------------------------
     private String name;
     private ArrayList<City> cities;
     private ArrayList<Connection> connections;
     private int distanceMatrix[][];
 
+    //--------------------Methods-------------------------------
+
+    /**
+     * Constructor
+     * @param name of network
+     */
     public Network(String name) {
         this.name = name;
         cities = new ArrayList<>();
         connections = new ArrayList<>();
     }
 
-    public String getName() {
-        return name;
-    }
-
+    //--------------------Add--------------------------------
+    /*
+    * Add city or connection in network
+    * */
     public void addCity(City city) {
         cities.add(city);
     }
 
-    public City getCityByName(String city) {
-        for (int i = 0; i < cities.size(); i++) {
-            if (cities.get(i).getName().equals(city)) {
-                return cities.get(i);
-            }
-        }
-        System.out.println("unknow city: " + city);
-        System.exit(1);
-        return null;
-    }
-
-    public int getCityIndexByName(String city) {
-        for (int i = 0; i < cities.size(); i++) {
-            if (cities.get(i).getName().equals(city)) {
-                return i;
-            }
-        }
-        System.out.println("unknow city: " + city);
-        System.exit(1);
-        return -1;
+    public void addCity(String name) {
+        cities.add(new City(name));
+        update();
     }
 
     public void addConnection(String city, String city2, Integer distance) {
         connections.add(new Connection(getCityIndexByName(city), getCityIndexByName(city2), distance));
-        /*City c = getCityByName(city);
-        City c2 = getCityByName(city2);
-        c.addConnection(c2, distance);
-        c2.addConnection(c, distance);*/
         update();
     }
 
+    //--------------------Display-------------------------------
     public void displayCities() {
         //format [0:Geneve] [1:Lausanne]
         for (int i = 0; i < cities.size(); i++) {
@@ -65,8 +58,6 @@ public class Network {
     }
 
     public void displayDistanceMatrix() {
-        //System.out.println("0 34 inf inf inf inf inf inf inf inf inf inf inf inf inf");
-        //System.out.println("34 0 40 inf inf 67 inf inf inf inf inf inf inf inf 67");
         for (int i = 0; i < distanceMatrix.length; i++) {
             for (int j = 0; j < distanceMatrix[i].length; j++) {
                 if (distanceMatrix[i][j] == Integer.MAX_VALUE) {
@@ -80,6 +71,21 @@ public class Network {
         System.out.println();
     }
 
+    public void displayDistanceList() {
+        for (City city : cities) {
+            System.out.print(city.getName() + " ");
+            int index = getCityIndexByName(city.getName());
+            for (int i = 0; i < distanceMatrix.length; i++) {
+                int temp = distanceMatrix[index][i];
+                if(temp != Integer.MAX_VALUE && temp != 0){
+                    System.out.print("[" + cities.get(i).getName() + ":" + temp + "] ");
+                }
+            }
+            System.out.println();
+        }
+    }
+
+    //--------------------Update-------------------------------
     public void update() {
         distanceMatrix = new int[cities.size()][cities.size()];
         for (int i = 0; i < distanceMatrix.length; i++) {
@@ -97,39 +103,7 @@ public class Network {
         }
     }
 
-    public void displayDistanceList() {
-        //System.out.println("Geneve [Lausanne:34]");
-        //System.out.println("Lausanne [Geneve:34] [Neuchatel:40] [Berne:67] [Sion:67]");
-        for (City city : cities) {
-            System.out.print(city.getName() + " ");
-            int index = getCityIndexByName(city.getName());
-            for (int i = 0; i < distanceMatrix.length; i++) {
-                int temp = distanceMatrix[index][i];
-                if(temp != Integer.MAX_VALUE && temp != 0){
-                    System.out.print("[" + cities.get(i).getName() + ":" + temp + "] ");
-                }
-            }
-            System.out.println();
-        }
-    }
-
-    public int distance(String str1, String str2) {
-        return 0;
-    }
-
-    public ArrayList<City> getCities() {
-        return cities;
-    }
-
-    public int[][] getDistanceMatrix() {
-        return distanceMatrix;
-    }
-
-    public void addCity(String name) {
-        cities.add(new City(name));
-        update();
-    }
-
+    //--------------------Remove-------------------------------
     public void removeConnection(String city1, String city2) {
         int c1 = getCityIndexByName(city1);
         int c2 = getCityIndexByName(city2);
@@ -163,7 +137,27 @@ public class Network {
         update();
     }
 
+    //--------------------Getter-------------------------------
+    public int getCityIndexByName(String city) {
+        for (int i = 0; i < cities.size(); i++) {
+            if (cities.get(i).getName().equals(city)) {
+                return i;
+            }
+        }
+        System.out.println("unknow city: " + city);
+        System.exit(1);
+        return -1;
+    }
+    public String getName() {
+        return name;
+    }
     public ArrayList<Connection> getConnections() {
         return connections;
+    }
+    public int[][] getDistanceMatrix() {
+        return distanceMatrix;
+    }
+    public ArrayList<City> getCities() {
+        return cities;
     }
 }

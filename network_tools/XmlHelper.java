@@ -18,9 +18,21 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * Created by matoran on 3/15/17.
+ * @author ISELI Cyril & RODRIGUES Marco
+ * @version 0.1
+ * @date March and April 2017
+ * @file XmlHelper.java
+ *
+ * Load or save a network in XML
+ *
  */
 public class XmlHelper {
+    //--------------------Methods-------------------------------
+    /**
+     * Load a network since a file xml
+     * @param path of file xml
+     * @return network of cities
+     */
     public static Network loadNetwork(String path) {
         Network network = null;
         final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -74,6 +86,11 @@ public class XmlHelper {
         return network;
     }
 
+    /**
+     * Save a network in XML
+     * @param network network of cities
+     * @param path of file xml
+     */
     public static void saveNetwork(Network network, String path) {
         final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         try {
@@ -119,12 +136,12 @@ public class XmlHelper {
             final Transformer transformer = transformerFactory.newTransformer();
             final DOMSource source = new DOMSource(document);
             final StreamResult output = new StreamResult(new File(path));
-            //formatage
+            //Formatting
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
             transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
 
-            //sortie
+            //Output
             transformer.transform(source, output);
         } catch (ParserConfigurationException | TransformerException e) {
             e.printStackTrace();

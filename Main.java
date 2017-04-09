@@ -9,7 +9,6 @@ import java.util.Scanner;
 
 /**
  * @author ISELI Cyril & RODRIGUES Marco
- * @brief main
  * @version 0.1
  * @date March and April 2017
  * @file Main.java
