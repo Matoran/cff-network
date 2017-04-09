@@ -7,25 +7,53 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 /**
- * Created by matoran on 3/19/17.
+ * @author ISELI Cyril & RODRIGUES Marco
+ * @brief main
+ * @version 0.1
+ * @date March and April 2017
+ * @file Dijkstra.java
+ *
+ * Solve a graph problem with Dijkstra
+ *
  */
 public class Dijkstra {
+    //--------------------Attributes----------------------------
     private static int distance;
     private static ArrayList<City> path = new ArrayList<>();
     private static boolean connectivity;
 
+    //--------------------Methods-------------------------------
+    /**
+     * Return the travel time between two cities for the gui
+     * @param network network of cities
+     * @param city1 name of city1
+     * @param city2 name of city2
+     * @return the number between city1 and city2
+     */
     public static int distance(Network network, String city1, String city2){
         solve(network, city1, city2, 10);
         return distance;
     }
 
+    /**
+     * Calculates the travel between two cities for the gui
+     * @param network network of cities
+     * @param city1 name of city1
+     * @param city2 name of city2
+     * @return the travel between city1 and city2
+     */
     public static ArrayList<City> path(Network network, String city1, String city2){
         path.clear();
         solve(network, city1, city2, 11);
         return path;
     }
 
-
+    /**
+     * Calculates the nearest city that has never been traveled
+     * @param distances array of distance for a city
+     * @param visited array of city already traveled
+     * @return the next city
+     */
     private static int minIndex(int[] distances, boolean[] visited) {
         int index = -1;
         int min = Integer.MAX_VALUE;
@@ -38,15 +66,30 @@ public class Dijkstra {
         return index;
     }
 
+    /**
+     * Solve a graph problem with dijkstra
+     * @param network network of cities
+     * @param begin the city of departure
+     * @param display option for the display
+     */
     public static void solve(Network network, String begin, int display) {
         solve(network, begin, null, display);
     }
 
+    /**
+     * Solve a graph problem with dijkstra
+     * @param network network of cities
+     * @param begin the city of departure
+     * @param end the city of arrival
+     * @param display option for the display
+     */
     public static void solve(Network network, String begin, String end, int display) {
+        //Initialization
         int result[] = new int[network.getCities().size()];
         boolean visited[] = new boolean[network.getCities().size()];
         int precedence[] = new int[network.getCities().size()];
 
+        //Step one
         int index = network.getCityIndexByName(begin);
         for (int i = 0; i < network.getCities().size(); i++) {
             if (network.getDistanceMatrix()[index][i] != Integer.MAX_VALUE)
@@ -57,6 +100,7 @@ public class Dijkstra {
         }
         visited[index] = true;
 
+        //Dijkstra
         while ((index = minIndex(result, visited)) != -1) {
             if (network.getCities().get(index).getName().equals(end)) {
                 break;
@@ -71,6 +115,8 @@ public class Dijkstra {
             }
             visited[index] = true;
         }
+
+        //Modes of display
         switch (display) {
             case 8:
                 for (int i = 0; i < result.length; i++) {
@@ -105,8 +151,6 @@ public class Dijkstra {
                     }
                     System.out.println("]");
                 }
-
-                //System.out.println("[Bale:Zurich:Coire:St.-Moritz]"); // résultat pour Bale à St.-Moritz
                 break;
             case 16:
                 for (int i = 0; i < result.length; i++) {
@@ -125,6 +169,11 @@ public class Dijkstra {
         }
     }
 
+    /**
+     * Test if the graph is connectivity
+     * @param network network of cities
+     * @return true or false for the connectivity
+     */
     public static boolean connectivity(Network network) {
         Dijkstra.solve(network, network.getCities().get(0).getName(), 16);
         return connectivity;
