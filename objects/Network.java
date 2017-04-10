@@ -19,7 +19,6 @@ public class Network {
     private int distanceMatrix[][];
 
     //--------------------Methods-------------------------------
-
     /**
      * Constructor
      * @param name of network
@@ -31,26 +30,37 @@ public class Network {
     }
 
     //--------------------Add--------------------------------
-    /*
-    * Add city or connection in network
-    * */
+    /**
+     * Add city in the network
+     * @param city object city
+     */
     public void addCity(City city) {
         cities.add(city);
     }
 
+    /**
+     * Add city in the network
+     * @param name of city
+     */
     public void addCity(String name) {
         cities.add(new City(name));
         update();
     }
 
+    /**
+     * Add connection in the network
+     * @param city name of city 1
+     * @param city2 name of city 2
+     * @param distance the distance
+     */
     public void addConnection(String city, String city2, Integer distance) {
         connections.add(new Connection(getCityIndexByName(city), getCityIndexByName(city2), distance));
         update();
     }
 
     //--------------------Display-------------------------------
-    /*
-    * Displays cities, distance matrix or distance list
+    /**
+     * Display cities
      */
     public void displayCities() {
         for (int i = 0; i < cities.size(); i++) {
@@ -59,6 +69,9 @@ public class Network {
         System.out.println();
     }
 
+    /**
+     * Display distance matrix
+     */
     public void displayDistanceMatrix() {
         for (int i = 0; i < distanceMatrix.length; i++) {
             for (int j = 0; j < distanceMatrix[i].length; j++) {
@@ -73,6 +86,9 @@ public class Network {
         System.out.println();
     }
 
+    /**
+     * Display distance list
+     */
     public void displayDistanceList() {
         for (City city : cities) {
             System.out.print(city.getName() + " ");
@@ -88,7 +104,6 @@ public class Network {
     }
 
     //--------------------Update-------------------------------
-
     /**
      * Update the distance matrix
      */
@@ -110,7 +125,6 @@ public class Network {
     }
 
     //--------------------Remove-------------------------------
-
     /**
      * Remove connection between two cities
      * @param city1 name of city 1
@@ -154,6 +168,11 @@ public class Network {
     }
 
     //--------------------Getter-------------------------------
+    /**
+     * Find the index for a string city
+     * @param city name of city
+     * @return number of city
+     */
     public int getCityIndexByName(String city) {
         for (int i = 0; i < cities.size(); i++) {
             if (cities.get(i).getName().equals(city)) {
