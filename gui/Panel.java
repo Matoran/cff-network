@@ -13,15 +13,28 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * Created by matoran on 4/3/17.
+ * @author ISELI Cyril & RODRIGUES Marco
+ * @version 0.1
+ * @date March and April 2017
+ * @file Panel.java
+ *
+ * Load data and draw the cff network
+ *
  */
 public class Panel extends JPanel{
+    //--------------------Attributes----------------------------
     private ArrayList<Point> points = new ArrayList<>();
     private Polygon polygon = new Polygon();
     private int minx = Integer.MAX_VALUE, miny =  Integer.MAX_VALUE, maxx = -1, maxy = -1;
     private Network network;
     private ArrayList<City> path;
 
+    //--------------------Methods-------------------------------
+
+    /**
+     * load all points to create the switzerland polygon from a file
+     * @param network
+     */
     public Panel(Network network) {
         this.network = network;
         String filePath = System.getProperty("user.dir") + File.separator + "data" + File.separator + "suisse.txt";
@@ -36,6 +49,7 @@ public class Panel extends JPanel{
                 String xy[] = readLine.split(" ");
                 int x = Integer.valueOf(xy[0]);
                 int y = Integer.valueOf(xy[1]);
+                //save the min and max x,y
                 if(x > maxx){
                     maxx = x;
                 }else if(x < minx){
@@ -53,9 +67,14 @@ public class Panel extends JPanel{
         }
     }
 
+    /**
+     * is called on repaint(resize window), draw the panel content
+     * @param g
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        //calc the switzerland ratio to keep aspect ratio in window
         float ratio = (float)(maxy-miny)/(maxx-minx);
         int width;
         int height;
@@ -67,6 +86,7 @@ public class Panel extends JPanel{
             height = (int)(ratio*getWidth()-10);
         }
 
+        //draw the switzerland
         for (Point point : points) {
             int x = map(point.x, minx, maxx, 10, width);
             int y = map(point.y, miny, maxy, 10, height);
@@ -76,6 +96,7 @@ public class Panel extends JPanel{
         }
         g.drawPolygon(polygon);
 
+        //draw cities
         for (City city : network.getCities()) {
             int x = map(city.getLongitude(), minx, maxx, 10, width);
             int y = map(city.getLatitude(), miny, maxy, 10, height);
@@ -85,6 +106,7 @@ public class Panel extends JPanel{
             g.drawString(city.getName(), x+10, y+5);
         }
 
+        //draw connections
         for (Connection connection : network.getConnections()) {
             City city1 = network.getCities().get(connection.getCity1());
             City city2 = network.getCities().get(connection.getCity2());
@@ -98,6 +120,8 @@ public class Panel extends JPanel{
             g.drawLine(city1x, city1y, city2x, city2y);
             g.drawString(String.valueOf(connection.getDistance()), (city1x+city2x)/2, (city1y+city2y)/2);
         }
+
+        //draw a path(Dijkstra or Floyd) if set
         if(path != null){
             for (int i = 0; i < path.size()-1; i++) {
                 City city1 = path.get(i);
@@ -118,11 +142,21 @@ public class Panel extends JPanel{
         polygon.reset();
     }
 
+    /**
+     * map a val from in_min-in_max to out_min-out_max
+     * @param val value to be mapped
+     * @param in_min min value from source
+     * @param in_max max value from source
+     * @param out_min min value from destination
+     * @param out_max max value from destination
+     * @return mapped value
+     */
     private int map(int val, int in_min, int in_max, int out_min, int out_max)
     {
         return (val - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
     }
 
+    //--------------------Setter-------------------------------
     public void setPath(ArrayList<City> path) {
         this.path = path;
     }

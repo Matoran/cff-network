@@ -10,16 +10,22 @@ import javax.swing.*;
 import java.io.File;
 
 /**
- * Created by matoran on 4/3/17.
+ * @author ISELI Cyril & RODRIGUES Marco
+ * @version 0.1
+ * @date March and April 2017
+ * @file Window.java
+ *
+ * Create the window and the menu
+ *
  */
 public class Window {
     public static void main(String[] args) {
         String filePath = System.getProperty("user.dir") + File.separator + "data" + File.separator + "villes.xml";
-        //lire le fichier villes.xml avec votre code
         Network network = XmlHelper.loadNetwork(filePath);
         network.update();
         JFrame frame = new JFrame(network.getName());
 
+        //the menu creation
         JMenuBar menuBar = new JMenuBar();
 
         JMenu cities = new JMenu("Cities");
@@ -169,6 +175,7 @@ public class Window {
         menuBar.add(floyd);
         menuBar.add(connectivity);
         frame.setJMenuBar(menuBar);
+        //end of menu creation
 
         frame.setContentPane(new Panel(network));
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
