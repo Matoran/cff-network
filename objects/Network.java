@@ -49,8 +49,10 @@ public class Network {
     }
 
     //--------------------Display-------------------------------
+    /*
+    * Displays cities, distance matrix or distance list
+     */
     public void displayCities() {
-        //format [0:Geneve] [1:Lausanne]
         for (int i = 0; i < cities.size(); i++) {
             System.out.print("[" + i + ":" + cities.get(i).getName() + "] ");
         }
@@ -86,6 +88,10 @@ public class Network {
     }
 
     //--------------------Update-------------------------------
+
+    /**
+     * Update the distance matrix
+     */
     public void update() {
         distanceMatrix = new int[cities.size()][cities.size()];
         for (int i = 0; i < distanceMatrix.length; i++) {
@@ -104,6 +110,12 @@ public class Network {
     }
 
     //--------------------Remove-------------------------------
+
+    /**
+     * Remove connection between two cities
+     * @param city1 name of city 1
+     * @param city2 name of city 2
+     */
     public void removeConnection(String city1, String city2) {
         int c1 = getCityIndexByName(city1);
         int c2 = getCityIndexByName(city2);
@@ -117,6 +129,10 @@ public class Network {
         update();
     }
 
+    /**
+     * Remove a city and it's connections
+     * @param name of city
+     */
     public void removeCity(String name) {
         int index = getCityIndexByName(name);
         for (int i = connections.size() - 1; i >= 0; i--) {
